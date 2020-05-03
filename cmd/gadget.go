@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"flag"
-	aggerrit "github.com/andygrunwald/go-gerrit"
 	"github.com/maruel/subcommands"
+	"github.com/srabraham/gerritgadget/internal/cqdepend"
 	"go.chromium.org/luci/auth"
 	"go.chromium.org/luci/auth/client/authcli"
 	"go.chromium.org/luci/common/api/gerrit"
@@ -12,7 +12,6 @@ import (
 	"go.chromium.org/luci/hardcoded/chromeinfra"
 	"log"
 	"os"
-	"strings"
 )
 
 type getCqDependRun struct {
@@ -24,9 +23,6 @@ type getCqDependRun struct {
 func (c *getCqDependRun) Run(a subcommands.Application, args []string, env subcommands.Env) int {
 	flag.Parse()
 
-	cls := strings.Split(c.cls, ",")
-	log.Printf("cls = %v", cls)
-
 	ctx := context.Background()
 	authOpts, err := c.authFlags.Options()
 	if err != nil {
@@ -37,39 +33,14 @@ func (c *getCqDependRun) Run(a subcommands.Application, args []string, env subco
 
 	client, err := authenticator.Client()
 	if err != nil {
-		log.Printf("GetAccessToken: %v", err)
+		log.Printf("authenticator.Client: %v", err)
 		return 1
 	}
 
-	agClient, err := aggerrit.NewClient("https://chromium-review.googlesource.com", client)
-	if err != nil {
-		log.Printf("agNewClient: %v", err)
+	if err = cqdepend.UpdateCqDepend(client, c.cls); err != nil {
+		log.Printf("UpdateCqDepend: %v", err)
 		return 1
 	}
-
-	ci, _, err := agClient.Changes.GetCommit("2100584", "current", &aggerrit.CommitOptions{})
-	if err != nil {
-		log.Printf("GetCommit: %v", err)
-		return 1
-	}
-
-	newCommitMsg := ci.Message + "abc"
-
-	if newCommitMsg == ci.Message {
-		log.Printf("no need to change commit message on 2100584")
-	} else {
-		_, err = agClient.Changes.SetCommitMessage("2100584", &aggerrit.CommitMessageInput{Message: "test test test"})
-		if err != nil {
-			log.Printf("SetCommitMessage: %v", err)
-			return 1
-		}
-	}
-	//_, _, err = agClient.Changes.SetReview("2100584", "current", &aggerrit.ReviewInput{
-	//	Labels: map[string]string{"Code-Review": "+1"},
-	//})
-	//if err != nil {
-	//	log.Printf("SetReview: %v", err)
-	//}
 	return 0
 }
 

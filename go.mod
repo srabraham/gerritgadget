@@ -6,6 +6,7 @@ require (
 	cloud.google.com/go v0.56.0 // indirect
 	github.com/andygrunwald/go-gerrit v0.0.0-20200503132804-ed2419acda39
 	github.com/golang/protobuf v1.4.0 // indirect
+	github.com/google/go-cmp v0.4.0
 	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/julienschmidt/httprouter v1.3.0 // indirect
 	github.com/maruel/subcommands v0.0.0-20200206125935-de1d40e70d4b
@@ -16,6 +17,7 @@ require (
 	github.com/texttheater/golang-levenshtein v0.0.0-20191208221605-eb6844b05fc6 // indirect
 	go.chromium.org/luci v0.0.0-20200502172955-ba1dbf255208
 	golang.org/x/net v0.0.0-20200501053045-e0ff5e5a1de5 // indirect
+	golang.org/x/sync v0.0.0-20200317015054-43a5402ce75a
 	google.golang.org/api v0.22.0 // indirect
 	google.golang.org/genproto v0.0.0-20200430143042-b979b6f78d84 // indirect
 	google.golang.org/grpc v1.29.1 // indirect
