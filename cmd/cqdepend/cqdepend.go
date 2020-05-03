@@ -64,12 +64,12 @@ func (c *getCqDependRun) Run(a subcommands.Application, args []string, env subco
 			return 1
 		}
 	}
-	_, _, err = agClient.Changes.SetReview("2100584", "current", &aggerrit.ReviewInput{
-		Labels: map[string]string{"Code-Review": "+1"},
-	})
-	if err != nil {
-		log.Printf("SetReview: %v", err)
-	}
+	//_, _, err = agClient.Changes.SetReview("2100584", "current", &aggerrit.ReviewInput{
+	//	Labels: map[string]string{"Code-Review": "+1"},
+	//})
+	//if err != nil {
+	//	log.Printf("SetReview: %v", err)
+	//}
 	return 0
 }
 

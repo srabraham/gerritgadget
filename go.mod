@@ -2,11 +2,9 @@ module github.com/srabraham/gerrit-helpers
 
 go 1.14
 
-replace github.com/andygrunwald/go-gerrit =>  github.com/srabraham/go-gerrit v0.0.0-20200503123348-eff03904eaec
-
 require (
 	cloud.google.com/go v0.56.0 // indirect
-	github.com/andygrunwald/go-gerrit v0.0.0-20191101112536-3f5e365ccf57 // indirect
+	github.com/andygrunwald/go-gerrit v0.0.0-20200503132804-ed2419acda39
 	github.com/golang/protobuf v1.4.0 // indirect
 	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/julienschmidt/httprouter v1.3.0 // indirect
