@@ -1,1 +1,1 @@
-# gerrit-helpers
+# Gerrit gadgets
