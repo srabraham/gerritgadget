@@ -53,7 +53,7 @@ func cqDepend(authOpts auth.Options) *subcommands.Command {
 			c := &getCqDependRun{}
 			c.authFlags = authcli.Flags{}
 			c.authFlags.Register(c.GetFlags(), authOpts)
-			c.Flags.StringVar(&c.cls, "cls", "", "")
+			c.Flags.StringVar(&c.cls, "cls", "", "List of CLs to Cq-Depend, e.g. chromium:123,chrome-internal:234 (generally, short-host:change-num)")
 			return c
 		},
 	}
