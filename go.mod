@@ -1,4 +1,4 @@
-module github.com/srabraham/gerrit-helpers
+module github.com/srabraham/gerritgadget
 
 go 1.14
 
