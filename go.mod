@@ -2,6 +2,8 @@ module github.com/srabraham/gerrit-helpers
 
 go 1.14
 
+replace github.com/andygrunwald/go-gerrit =>  github.com/srabraham/go-gerrit v0.0.0-20200503123348-eff03904eaec
+
 require (
 	cloud.google.com/go v0.56.0 // indirect
 	github.com/andygrunwald/go-gerrit v0.0.0-20191101112536-3f5e365ccf57 // indirect
@@ -13,7 +15,6 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/smartystreets/assertions v1.1.0 // indirect
 	github.com/smartystreets/goconvey v1.6.4 // indirect
-	github.com/srabraham/go-gerrit v0.0.0-20200503014214-9976e53b68e6
 	github.com/texttheater/golang-levenshtein v0.0.0-20191208221605-eb6844b05fc6 // indirect
 	go.chromium.org/luci v0.0.0-20200502172955-ba1dbf255208
 	golang.org/x/net v0.0.0-20200501053045-e0ff5e5a1de5 // indirect

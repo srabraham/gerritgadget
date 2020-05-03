@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"flag"
+	aggerrit "github.com/andygrunwald/go-gerrit"
 	"github.com/maruel/subcommands"
-	aggerrit "github.com/srabraham/go-gerrit"
 	"go.chromium.org/luci/auth"
 	"go.chromium.org/luci/auth/client/authcli"
 	"go.chromium.org/luci/common/api/gerrit"
@@ -12,7 +12,7 @@ import (
 	"go.chromium.org/luci/hardcoded/chromeinfra"
 	"log"
 	"os"
-	"time"
+	"strings"
 )
 
 type getCqDependRun struct {
@@ -24,6 +24,9 @@ type getCqDependRun struct {
 func (c *getCqDependRun) Run(a subcommands.Application, args []string, env subcommands.Env) int {
 	flag.Parse()
 
+	cls := strings.Split(c.cls, ",")
+	log.Printf("cls = %v", cls)
+
 	ctx := context.Background()
 	authOpts, err := c.authFlags.Options()
 	if err != nil {
@@ -32,13 +35,11 @@ func (c *getCqDependRun) Run(a subcommands.Application, args []string, env subco
 	}
 	authenticator := auth.NewAuthenticator(ctx, auth.SilentLogin, authOpts)
 
-	tok, err := authenticator.GetAccessToken(10 * time.Minute)
 	client, err := authenticator.Client()
 	if err != nil {
 		log.Printf("GetAccessToken: %v", err)
 		return 1
 	}
-	log.Printf("got tok: %v", tok.AccessToken)
 
 	agClient, err := aggerrit.NewClient("https://chromium-review.googlesource.com", client)
 	if err != nil {
@@ -46,33 +47,29 @@ func (c *getCqDependRun) Run(a subcommands.Application, args []string, env subco
 		return 1
 	}
 
-	ci, resp, err := agClient.Changes.GetCommit("2100584", "current", &aggerrit.CommitOptions{})
+	ci, _, err := agClient.Changes.GetCommit("2100584", "current", &aggerrit.CommitOptions{})
 	if err != nil {
 		log.Printf("GetCommit: %v", err)
 		return 1
 	}
-	log.Printf("commitinfo = %v\n\nresp=%v\n\n", ci, resp)
-	log.Printf("msg = %v", ci.Message)
 
-	newCommitMsg := ci.Message
+	newCommitMsg := ci.Message + "abc"
 
 	if newCommitMsg == ci.Message {
 		log.Printf("no need to change commit message on 2100584")
 	} else {
-		resp, err = agClient.Changes.SetCommitMessage("2100584", &aggerrit.CommitMessageInput{Message: "test test test"})
+		_, err = agClient.Changes.SetCommitMessage("2100584", &aggerrit.CommitMessageInput{Message: "test test test"})
 		if err != nil {
 			log.Printf("SetCommitMessage: %v", err)
 			return 1
 		}
-		log.Printf("resp = %v", resp)
 	}
-	reviewResult, resp, err := agClient.Changes.SetReview("2100584", "current", &aggerrit.ReviewInput{
+	_, _, err = agClient.Changes.SetReview("2100584", "current", &aggerrit.ReviewInput{
 		Labels: map[string]string{"Code-Review": "+1"},
 	})
 	if err != nil {
 		log.Printf("SetReview: %v", err)
 	}
-	log.Printf("reviewResult = %v", reviewResult)
 	return 0
 }
 

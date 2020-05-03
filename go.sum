@@ -113,6 +113,8 @@ github.com/smartystreets/goconvey v1.6.4 h1:fv0U8FUIMPNf1L9lnHLvLhgicrIVChEkdzIK
 github.com/smartystreets/goconvey v1.6.4/go.mod h1:syvi0/a8iFYH4r/RixwvyeAJjdLS9QV7WQ/tjFTllLA=
 github.com/srabraham/go-gerrit v0.0.0-20200503014214-9976e53b68e6 h1:CIveKJ0GmBlev0BN0/zctzjf4ab95DmrIguv1z34i34=
 github.com/srabraham/go-gerrit v0.0.0-20200503014214-9976e53b68e6/go.mod h1:zuRUiuGDa0El8Xhs/xSdQ1PJsBGtzhlyAm/s/Se+pyQ=
+github.com/srabraham/go-gerrit v0.0.0-20200503123348-eff03904eaec h1:n5NZMG7RBYL+GE8gjgkudsKF5RvbguaCGg++W4n2FZc=
+github.com/srabraham/go-gerrit v0.0.0-20200503123348-eff03904eaec/go.mod h1:zuRUiuGDa0El8Xhs/xSdQ1PJsBGtzhlyAm/s/Se+pyQ=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
 github.com/texttheater/golang-levenshtein v0.0.0-20191208221605-eb6844b05fc6 h1:9VTskZOIRf2vKF3UL8TuWElry5pgUpV1tFSe/e/0m/E=
