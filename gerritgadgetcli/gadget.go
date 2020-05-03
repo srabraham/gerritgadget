@@ -47,7 +47,7 @@ func (c *getCqDependRun) Run(a subcommands.Application, args []string, env subco
 func cqDepend(authOpts auth.Options) *subcommands.Command {
 	return &subcommands.Command{
 		UsageLine: "apply-cq-depend --cls=chromium:123,chrome-internal:234",
-		ShortDesc: "Applies a fully connected graph of Cq-Depend footers for the provided CLs",
+		ShortDesc: "applies a fully connected graph of Cq-Depend footers for the provided CLs",
 		LongDesc:  "Applies a fully connected graph of Cq-Depend footers for the provided CLs",
 		CommandRun: func() subcommands.CommandRun {
 			c := &getCqDependRun{}
@@ -61,7 +61,7 @@ func cqDepend(authOpts auth.Options) *subcommands.Command {
 
 func GetApplication(authOpts auth.Options) *cli.Application {
 	return &cli.Application{
-		Name: "gerritgadget",
+		Name: "gerritgadgetcli",
 		Context: func(ctx context.Context) context.Context {
 			return ctx
 		},
