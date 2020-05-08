@@ -62,11 +62,11 @@ func getCommitMessages(authedClient *http.Client, cls []gerritchange.ChangeList)
 			return nil
 		})
 	}
-	if err := g.Wait(); err != nil {
+	err := g.Wait()
+	close(ch)
+	if err != nil {
 		return nil, err
 	}
-	// safe to close, since all the sender goroutines are done
-	close(ch)
 	clToCm := make(map[gerritchange.ChangeList]gerritchange.CommitMessage)
 	for result := range ch {
 		clToCm[result.cl] = result.cm
@@ -96,10 +96,7 @@ func updateCommitMessages(authedClient *http.Client, cls []gerritchange.ChangeLi
 			return nil
 		})
 	}
-	if err := g.Wait(); err != nil {
-		return err
-	}
-	return nil
+	return g.Wait()
 }
 
 func UpdateCqDepend(authedClient *http.Client, clString string) error {
