@@ -87,7 +87,7 @@ func (c *getCreateBranchRun) Run(a subcommands.Application, args []string, env s
 		return 1
 	}
 
-	agClient, err := aggerrit.NewClient(fmt.Sprintf("https://%v.googlesource.com", c.host), client)
+	agClient, err := aggerrit.NewClient(fmt.Sprintf("https://%v-review.googlesource.com", c.host), client)
 	if err != nil {
 		log.Printf("failed to create Gerrit client: %v", err)
 		return 1
