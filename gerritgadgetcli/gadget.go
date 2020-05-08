@@ -12,6 +12,7 @@ import (
 	"go.chromium.org/luci/common/api/gerrit"
 	"go.chromium.org/luci/common/cli"
 	"go.chromium.org/luci/hardcoded/chromeinfra"
+	"io/ioutil"
 	"log"
 	"os"
 )
@@ -93,9 +94,12 @@ func (c *getCreateBranchRun) Run(a subcommands.Application, args []string, env s
 		return 1
 	}
 
-	bi, _, err := agClient.Projects.CreateBranch(c.project, c.destBranch, &aggerrit.BranchInput{Ref: c.sourceRef})
+	bi, resp, err := agClient.Projects.CreateBranch(c.project, c.destBranch, &aggerrit.BranchInput{Revision: c.sourceRef})
+	defer resp.Body.Close()
 	if err != nil {
-		log.Printf("failed to create branch: %v", err)
+		b, _ := ioutil.ReadAll(resp.Body)
+		bString := string(b)
+		log.Printf("failed to create branch: %v\n\n%v", err, bString)
 	}
 	log.Printf("got branchinfo: %v", bi)
 	return 0
